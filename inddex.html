@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Счетчик гривен</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 300px;
+    margin: auto;
+    padding: 20px;
+  }
+  label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  input {
+    width: 60px;
+    text-align: right;
+  }
+  .total {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h2>Счетчик гривен</h2>
+
+<label>10 грн: <input type="number" id="c10" value="0" min="0"></label>
+<label>20 грн: <input type="number" id="c20" value="0" min="0"></label>
+<label>50 грн: <input type="number" id="c50" value="0" min="0"></label>
+<label>100 грн: <input type="number" id="c100" value="0" min="0"></label>
+<label>200 грн: <input type="number" id="c200" value="0" min="0"></label>
+<label>500 грн: <input type="number" id="c500" value="0" min="0"></label>
+
+<div class="total">Сумма: <span id="total">0</span> грн</div>
+
+<script>
+function updateTotal() {
+  let sum = 
+    (parseInt(c10.value)  || 0) * 10 +
+    (parseInt(c20.value)  || 0) * 20 +
+    (parseInt(c50.value)  || 0) * 50 +
+    (parseInt(c100.value) || 0) * 100 +
+    (parseInt(c200.value) || 0) * 200 +
+    (parseInt(c500.value) || 0) * 500;
+  
+  total.textContent = sum;
+}
+
+document.querySelectorAll("input").forEach(el => {
+  el.addEventListener("input", updateTotal);
+});
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+
+</body>
+</html>
